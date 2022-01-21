@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:qr_scanner_generator/settings/user_preferences.dart';
 import 'package:qr_scanner_generator/widgets/custom_raised_button.dart';
 
 class GenerateQR extends StatefulWidget {
@@ -16,6 +18,8 @@ class _GenerateQRState extends State<GenerateQR> {
 
   @override
   Widget build(BuildContext context) {
+    final _userPreferences = Provider.of<UserPreferences>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
@@ -34,6 +38,9 @@ class _GenerateQRState extends State<GenerateQR> {
                 child: QrImage(
                   data: qrData,
                   constrainErrorBounds: true,
+                  foregroundColor: _userPreferences.usesDarkTheme()
+                      ? Colors.white
+                      : Colors.black,
                 ),
               ),
 

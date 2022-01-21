@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_scanner_generator/settings/user_preferences.dart';
 
 class CustomRaisedButton extends StatelessWidget {
   final String _title;
@@ -13,13 +15,15 @@ class CustomRaisedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _userPreferences = Provider.of<UserPreferences>(context);
+
     return Container(
       margin: const EdgeInsets.all(10),
       width: double.infinity,
       height: 55,
       child: RaisedButton(
         elevation: 0,
-        color: Colors.white,
+        color: _userPreferences.usesDarkTheme() ? Colors.teal : Colors.white,
         splashColor: Colors.grey[50],
         focusColor: Colors.grey[50],
         hoverColor: Colors.grey[50],
@@ -27,9 +31,10 @@ class CustomRaisedButton extends StatelessWidget {
         onPressed: this._onPressed,
         child: Text(
           '${this._title}',
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.w700,
-            color: Colors.teal,
+            color:
+                _userPreferences.usesDarkTheme() ? Colors.white : Colors.teal,
             fontSize: 20,
           ),
         ),

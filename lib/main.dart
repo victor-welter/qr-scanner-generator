@@ -1,15 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:qr_scanner_generator/settings/user_preferences.dart';
 import 'package:qr_scanner_generator/views/home_screen_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final sharedPreferences = await SharedPreferences.getInstance();
+
+  runApp(MyApp(preferences: sharedPreferences));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  final SharedPreferences preferences;
+
+  MyApp({Key key, this.preferences})
+      : assert(preferences != null),
+        super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  UserPreferences _userPreferences;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _userPreferences = UserPreferences(widget.preferences);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const HomeScreen(),
+    SystemChrome.setPreferredOrientations(
+      [
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ],
+    );
+    return Provider<UserPreferences>.value(
+      value: _userPreferences,
+      child: StreamBuilder<UserPreferences>(
+        initialData: _userPreferences,
+        stream: _userPreferences.stream,
+        builder: (context, shot) {
+          return MaterialApp(
+            darkTheme: ThemeData.dark(),
+            themeMode:
+                shot.data.usesDarkTheme() ? ThemeMode.dark : ThemeMode.light,
+            home: const HomeScreen(),
+          );
+        },
+      ),
     );
   }
 }
