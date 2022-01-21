@@ -3,6 +3,8 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:qr_scanner_generator/widgets/custom_raised_button.dart';
 
 class GenerateQR extends StatefulWidget {
+  const GenerateQR({Key key}) : super(key: key);
+
   @override
   _GenerateQRState createState() => _GenerateQRState();
 }

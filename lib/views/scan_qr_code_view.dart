@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:qr_scanner_generator/widgets/custom_raised_button.dart';
 
 class ScanQR extends StatefulWidget {
+  const ScanQR({Key key}) : super(key: key);
+
   @override
   _ScanQRState createState() => _ScanQRState();
 }
