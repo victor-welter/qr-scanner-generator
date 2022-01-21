@@ -48,10 +48,17 @@ class _MyAppState extends State<MyApp> {
         initialData: _userPreferences,
         stream: _userPreferences.stream,
         builder: (context, shot) {
+          ThemeMode _themeMode() {
+            if (shot.data.usesDarkTheme()) {
+              return ThemeMode.dark;
+            }
+
+            return ThemeMode.light;
+          }
+
           return MaterialApp(
             darkTheme: ThemeData.dark(),
-            themeMode:
-                shot.data.usesDarkTheme() ? ThemeMode.dark : ThemeMode.light,
+            themeMode: _themeMode(),
             home: const HomeScreen(),
           );
         },

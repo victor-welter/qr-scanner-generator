@@ -17,24 +17,47 @@ class CustomRaisedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final _userPreferences = Provider.of<UserPreferences>(context);
 
+    Color _backgroundColor() {
+      if (_userPreferences.usesDarkTheme()) {
+        return Colors.teal;
+      }
+
+      return Colors.white;
+    }
+
+    Color _splashColor() {
+      if (_userPreferences.usesDarkTheme()) {
+        return Colors.teal[600];
+      }
+
+      return Colors.grey[50];
+    }
+
+    Color _colorTextTitle() {
+      if (_userPreferences.usesDarkTheme()) {
+        return Colors.white;
+      }
+
+      return Colors.teal;
+    }
+
     return Container(
       margin: const EdgeInsets.all(10),
       width: double.infinity,
       height: 55,
       child: RaisedButton(
         elevation: 0,
-        color: _userPreferences.usesDarkTheme() ? Colors.teal : Colors.white,
-        splashColor: Colors.grey[50],
-        focusColor: Colors.grey[50],
-        hoverColor: Colors.grey[50],
+        color: _backgroundColor(),
+        splashColor: _splashColor(),
+        focusColor: _splashColor(),
+        hoverColor: _splashColor(),
         colorBrightness: Brightness.dark,
         onPressed: this._onPressed,
         child: Text(
           '${this._title}',
           style: TextStyle(
             fontWeight: FontWeight.w700,
-            color:
-                _userPreferences.usesDarkTheme() ? Colors.white : Colors.teal,
+            color: _colorTextTitle(),
             fontSize: 20,
           ),
         ),
