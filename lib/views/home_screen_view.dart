@@ -18,6 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Stack(
           children: [
+            //Settings
             Align(
               alignment: Alignment.topRight,
               child: Container(
@@ -48,8 +49,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     size: 300,
                   ),
                 ),
+                //Scan QR Code
                 CustomRaisedButton(
-                  title: 'Scan QR Code',
+                  title: 'Digitalizar código QR',
                   onPressed: () {
                     Navigator.push(
                         context,
@@ -57,8 +59,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             builder: (context) => const ScanQR()));
                   },
                 ),
+                //Generate QR Code
                 CustomRaisedButton(
-                  title: 'Generate QR Code',
+                  title: 'Gerar código QR',
                   onPressed: () {
                     Navigator.push(
                         context,

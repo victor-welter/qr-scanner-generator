@@ -14,7 +14,7 @@ class GenerateQR extends StatefulWidget {
 class _GenerateQRState extends State<GenerateQR> {
   String qrData = "https://github.com/victor-welter";
 
-  final qrdataFeed = TextEditingController();
+  final _qrdataController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class _GenerateQRState extends State<GenerateQR> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        title: const Text("Generate QR Code"),
+        title: const Text("Gerar código QR"),
         centerTitle: true,
       ),
       body: Container(
@@ -33,6 +33,7 @@ class _GenerateQRState extends State<GenerateQR> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              //Gera código QR
               Container(
                 margin: const EdgeInsets.all(20),
                 child: QrImage(
@@ -44,8 +45,9 @@ class _GenerateQRState extends State<GenerateQR> {
                 ),
               ),
 
-              //TextField for input link
-              const TextField(
+              //Campo para o Link do código QR => [TextField]
+              TextField(
+                controller: _qrdataController,
                 decoration: InputDecoration(
                   hintText: "Insira seu link aqui",
                 ),
@@ -53,17 +55,18 @@ class _GenerateQRState extends State<GenerateQR> {
 
               const SizedBox(height: 20),
 
+              //Button Gerar código QR
               CustomRaisedButton(
                 title: "Generate QR Code",
                 onPressed: () async {
-                  //a little validation for the textfield
-                  if (qrdataFeed.text.isEmpty) {
+                  //Valida QR Code
+                  if (_qrdataController.text.isEmpty) {
                     setState(() {
-                      qrData = "";
+                      qrData = "https://github.com/victor-welter";
                     });
                   } else {
                     setState(() {
-                      qrData = qrdataFeed.text;
+                      qrData = _qrdataController.text;
                     });
                   }
                 },

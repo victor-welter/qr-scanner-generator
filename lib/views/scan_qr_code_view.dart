@@ -17,7 +17,7 @@ class _ScanQRState extends State<ScanQR> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
-        title: const Text("Scan QR Code"),
+        title: const Text("Digitalizar código QR"),
         centerTitle: true,
       ),
       body: Container(
@@ -30,7 +30,7 @@ class _ScanQRState extends State<ScanQR> {
               "Resultado",
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 25.0,
+                fontSize: 25,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -44,11 +44,11 @@ class _ScanQRState extends State<ScanQR> {
 
             const SizedBox(height: 20),
 
-            //Button to scan QR code
+            //Button para digitalizar o código QR
             CustomRaisedButton(
-              title: "Open Scanner",
+              title: "Abrir scanner",
               onPressed: () async {
-                //barcode scanner
+                //Open scanner => [BarcodeScanner]
                 String codeSanner = await BarcodeScanner.scan();
 
                 setState(() {
